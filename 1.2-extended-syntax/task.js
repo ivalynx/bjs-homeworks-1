@@ -11,20 +11,20 @@ function calculateQuadraticEquation(){
 }
 
 function getResult(a,b,c){
-    let D = b**2 - 4 * a * c;
     let x = [];
-    switch(D) {
-        case D < 0 : 
-            x;
-            break;
-        case 0 :
-            x.push( (-b) / (2 * a) );
-            break;
-        case D > 0 :
-            x.push( ( -b + Math.sqrt(D) ) / ( 2 * a) );
-            x.push( ( -b - Math.sqrt(D) ) / ( 2 * a) );
-            break;
+    if(a === 0) {
+        return x;
     }
+    let D = b ** 2 - 4 * a * c;
+    if(D < 0){
+      x;
+    } else if( D === 0) {
+      x.push( (-b) / (2 * a) );
+    } else if(D > 0) {
+      x.push( ( -b + Math.sqrt(D) ) / ( 2 * a) );
+      x.push( ( -b - Math.sqrt(D) ) / ( 2 * a) );
+    };
+    
     return x;
 }
 
@@ -36,7 +36,7 @@ function calculateAverageRating(){
 
 function getAverageMark(marks){
     // код для задачи №2 писать здесь
-    
+
     return averageMark;
 }
 
