@@ -58,7 +58,22 @@ function getAverageScore( data ) {
   };
   resultAverageScore.average = averageScore / subject;
   if(subject < 10) {
-    console.log(`Внимание! Количество предметов меньше 10, средняя оценка выдана только за указанные ${subject} предметов.`);
+    let subjects = '';
+    switch(subject) {
+      case 1:
+        subjects = `указанный ${subject} предмет`; 
+        break;
+      case 2:
+      case 3:
+      case 4:
+        subjects = `указанные ${subject} предмета`; 
+        break;
+      default:
+        subjects = `указанные ${subject} предметов`; 
+        break;
+    }
+
+    console.log(`Внимание! Количество предметов меньше 10, средняя оценка выдана только за ${subjects}.`);
   }
   return console.log(resultAverageScore);
 }
@@ -83,7 +98,7 @@ console.log( getAverageScore({
   music: [5, 5, 4, 3, 5, 2],
   english: [5, 5, 4, 3, 5, 1],
   french: [5, 5, 4, 3, 5, 2, 5, 3],
-  chemistry: [5, 5, 4, 3, 5, 2, 1],
+  //chemistry: [5, 5, 4, 3, 5, 2, 1],
 }));
 
 // Задача №3
