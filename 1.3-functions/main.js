@@ -39,7 +39,7 @@ showSolutionsMessage( 7, 20, -3 );
 
 // D > 0 = 7, 20, -3    x1, x2
 // D === 0 = 2, 4, 2    x1
-// D < 0 = 1, 2, 3      undef
+// D < 0 = 1, 2, 3      undefined
 
 
 // Задача №2
@@ -52,7 +52,6 @@ function getAverageScore( data ) {
   for(let prop in data) {
     let key = prop;
     subject += 1;
-    resultAverageScore[key] = prop;
     resultAverageScore[key] = getAverageMark(data[prop]);
     averageScore += getAverageMark(data[prop]);
   };
