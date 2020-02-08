@@ -102,3 +102,47 @@ console.log( getAverageScore({
 }));
 
 // Задача №3
+
+function decryptName(number){
+  switch(number) {
+    case 0:
+      return "Родриго";
+    case 1:
+      return "Эмильо";
+    default:
+      return undefined;
+  }
+}
+
+function getPersonData( secretData ){
+  let decryptedData = {};
+  for (let prop in secretData){
+    let key = '';
+    if ( prop === 'aaa' ){
+      key = 'firstName';
+    } else if ( prop === 'bbb' ){
+      key = 'lastName';
+    };
+    decryptedData[key] = decryptName(secretData[prop]);
+  };
+  return decryptedData;
+};
+
+let firstSecretData = {
+  aaa: 0,
+  bbb: 0,
+};
+let secondSecretData = {
+  aaa: 1,
+  bbb: 0,
+};
+let thirdSecretData = {
+  aaa: 0,
+  bbb: 1,
+};
+let fourthSecretData = {
+  aaa: 1,
+  bbb: 1,
+};
+
+console.log( getPersonData(fourthSecretData) );
