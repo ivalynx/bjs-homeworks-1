@@ -19,14 +19,17 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
             months = date.getMonth() - currentDate.getMonth() + 1;
         } else {            
             months = date.getMonth() + (12 - currentDate.getMonth() );
-            for(let i = 0; i < years; i++) {
+            for(let i = 1; i < years; i++) {
                 months += 12;
             };
         };
         let everyMonthPercentage = percent / 100 / 12;
-        let everyMonthAmount = resultCheckValue.amount * ( everyMonthPercentage + everyMonthPercentage / ( ( Math.pow(1 + everyMonthPercentage, months) )  -1 ) ); 
+        console.log(everyMonthPercentage);
+        // let everyMonthAmount = resultCheckValue.amount * ( everyMonthPercentage + everyMonthPercentage / ( ( Math.pow(1 + everyMonthPercentage, months) ) - 1 ) );  // 22149.56
+        let everyMonthAmount = resultCheckValue.amount * ( everyMonthPercentage + everyMonthPercentage / ( ( ( 1 + everyMonthPercentage ) ** months ) - 1 ) ); //22149.56
         let totalAmount = everyMonthAmount * months;
         totalAmount = Math.round(totalAmount*100)/100;
+        // totalAmount = totalAmount.toFixed(2);
         console.log(`Общая стоимость ${totalAmount}`);
         return totalAmount;
     }
