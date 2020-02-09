@@ -1,9 +1,9 @@
 'use strict'
   
 const currentDate = new Date();
-let resultCheckValue = {};
+let resultCheckValue = {};  
 let parameterName = '';
-let parameterValue = '';      
+let parameterValue = '';    
 
 function calculateTotalMortgage(percent, contribution, amount, date) {
     // код для задачи №1 писать здесь  
@@ -11,11 +11,9 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
     if( resultCheckValue.error ) {
         console.log(resultCheckValue.message);
     } else {        
-        console.log(resultCheckValue);
-        // Посчитайте сумму, которую необходимо вернуть банку. (сумма кредита минус первоначальный взнос) Тело кредита   
+        console.log(resultCheckValue);  
         const mortgageBody =  resultCheckValue.amount - resultCheckValue.contribution;
         console.log(`mortgageBody = ${mortgageBody}`);
-        // Посчитайте количество выплачиваемых месяцев
         let months = 0;
         let years = date.getYear() - currentDate.getYear();
         if( years === 0 ) {
@@ -26,24 +24,21 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
                 months += 12;
             };
         };
-// Ежемесячная оплата рассчитывается по формуле: Платеж=S*(P+P/(((1+P)^n)-1)), где: S - сумма кредита, P - 1/12 процентной ставки (от 0 до 1), n - количество месяцев ^ - возведение в степень
         let everyMonthPercentage = percent / 100 / 12;
         console.log(`everyMonthPercentage = ${everyMonthPercentage}`);
-        let everyMonthAmount = resultCheckValue.amount * ( everyMonthPercentage + everyMonthPercentage / ( ( Math.pow(1 + everyMonthPercentage, months) )  -1 ) ); // , где:  ^ - возведение в степень
-        console.log(`everyMonthAmount = ${everyMonthAmount}`);      
-// Посчитайте общую сумму, которую придется заплатить клиенту.
+        let everyMonthAmount = resultCheckValue.amount * ( everyMonthPercentage + everyMonthPercentage / ( ( Math.pow(1 + everyMonthPercentage, months) )  -1 ) ); 
+        console.log(`everyMonthAmount = ${everyMonthAmount}`);   
         let totalAmount = everyMonthAmount * months;
-// Округлите результат до двух значений после запятой.
         totalAmount = Math.round(totalAmount*100)/100;
-// Выведите результат в консоль, а также верните его из функции. Результатом функции должно быть значение числового типа.
-        console.log(`Общая стоимость ${totalAmount} \n Ежемесячная оплата ${everyMonthAmount}`);
+        console.log(`Общая стоимость ${totalAmount}`);
         return totalAmount;
     }
 }
 
 
 function checkingValues(percent, contribution, amount, date) {  
-    let messageError = `Параметр ${parameterName} содержит неправильное значение ${parameterValue}. `;  
+    let messageError = `Параметр ${parameterName} содержит неправильное значение ${parameterValue}. `;      
+
     const percentName = 'Процентная ставка';
     const contributionName = 'Начальный взнос';
     const amountName = 'Общая стоимость';
@@ -55,9 +50,9 @@ function checkingValues(percent, contribution, amount, date) {
     const nonParsedDate = date;
 
     // Попытка сохранить данные после того, как из них выделили число, чтоб два раза не вычислять
-    const parsedPercent = Number.parseFloat(percent);
-    const parsedContribution = Number.parseFloat(contribution); 
-    const parsedAmount = Number.parseFloat(amount);
+    const parsedPercent = Number.parseFloat(nonParsedPercent);
+    const parsedContribution = Number.parseFloat(nonParsedContribution); 
+    const parsedAmount = Number.parseFloat(nonParsedAmount);
 
     // Запишем числовые данные в объект результата
     resultCheckValue.percent = parsedPercent;
@@ -91,6 +86,8 @@ function checkingValues(percent, contribution, amount, date) {
     
     return resultCheckValue;
 } 
+
+
 let userName;
 
 function getGreeting(name) {
