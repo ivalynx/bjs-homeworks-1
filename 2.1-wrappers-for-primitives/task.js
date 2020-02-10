@@ -39,34 +39,25 @@ function checkingValues(percent, contribution, amount, date) {
     const contributionName = 'Начальный взнос';
     const amountName = 'Общая стоимость';
     const dateName = 'Срок ипотеки';
-    // Попытка сохранить передаваемые в функцию данные для того, чтоб потом их подставить в ${parameterValue}
-    const nonParsedPercent = percent;
-    const nonParsedContribution = contribution;
-    const nonParsedAmount = amount;
-    const nonParsedDate = date;    
-    // Попытка сохранить данные после того, как из них выделили число, чтоб два раза не вычислять
-    const parsedPercent = Number.parseFloat(nonParsedPercent);
-    const parsedContribution = Number.parseFloat(nonParsedContribution); 
-    const parsedAmount = Number.parseFloat(nonParsedAmount);
-    // Запишем числовые данные в объект результата
-    resultCheckValue.percent = parsedPercent;
-    resultCheckValue.contribution = parsedContribution;
-    resultCheckValue.amount = parsedAmount;
-    resultCheckValue.date = nonParsedDate;
     
-    if( Number.isNaN( parsedPercent ) ) {
+    resultCheckValue.percent = percent;
+    resultCheckValue.contribution = contribution;
+    resultCheckValue.amount = amount;
+    resultCheckValue.date = date;
+    
+    if( Number.isNaN( percent ) ) {
         parameterName = percentName;
-        parameterValue = nonParsedPercent;        
+        parameterValue = percent;        
         resultCheckValue.message = `Параметр ${parameterName} содержит неправильное значение ${parameterValue}. `;
         resultCheckValue.error = true;        
-    } else if( Number.isNaN( parsedContribution ) ) {
+    } else if( Number.isNaN( contribution ) ) {
         parameterName = contributionName;
-        parameterValue = nonParsedContribution;
+        parameterValue = contribution;
         resultCheckValue.error = true;
         resultCheckValue.message = `Параметр ${parameterName} содержит неправильное значение ${parameterValue}. `;
-    } else if( Number.isNaN( parsedAmount ) ) {
+    } else if( Number.isNaN( amount ) ) {
         parameterName = amountName;
-        parameterValue = nonParsedAmount;
+        parameterValue = amount;
         resultCheckValue.error = true;
         resultCheckValue.message = `Параметр ${parameterName} содержит неправильное значение ${parameterValue}. `;
     } else if( !Date.parse(date) || currentDate > date ) {
