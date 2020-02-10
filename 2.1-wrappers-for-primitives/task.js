@@ -3,11 +3,12 @@
 const currentDate = new Date();
 let resultCheckValue = {};  
 let parameterName = '';
-let parameterValue = '';    
+let parameterValue = '';  
 
 function calculateTotalMortgage(percent, contribution, amount, date) {
+    // код для задачи №1 писать здесь
     resultCheckValue = {};
-    // код для задачи №1 писать здесь  
+    
     checkingValues(percent, contribution, amount, date);
     if( resultCheckValue.error ) {
         console.log(resultCheckValue.message);
@@ -16,7 +17,7 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
         let months = 0;
         let years = date.getYear() - currentDate.getYear();
         if( years === 0 ) {
-            months = date.getMonth() - currentDate.getMonth() + 1;
+            months = date.getMonth() - currentDate.getMonth();
         } else {            
             months = date.getMonth() + (12 - currentDate.getMonth() );
             for(let i = 1; i < years; i++) {
@@ -24,19 +25,16 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
             };
         };
         let everyMonthPercentage = percent / 100 / 12;
-        console.log(everyMonthPercentage);
-        // let everyMonthAmount = resultCheckValue.amount * ( everyMonthPercentage + everyMonthPercentage / ( ( Math.pow(1 + everyMonthPercentage, months) ) - 1 ) );  // 22149.56
-        let everyMonthAmount = resultCheckValue.amount * ( everyMonthPercentage + everyMonthPercentage / ( ( ( 1 + everyMonthPercentage ) ** months ) - 1 ) ); //22149.56
+        let everyMonthAmount = mortgageBody * ( everyMonthPercentage + everyMonthPercentage / ( ( Math.pow(1 + everyMonthPercentage, months) ) - 1 ) ); 
         let totalAmount = everyMonthAmount * months;
         totalAmount = Math.round(totalAmount*100)/100;
-        // totalAmount = totalAmount.toFixed(2);
         console.log(`Общая стоимость ${totalAmount}`);
         return totalAmount;
     }
 }
 
 function checkingValues(percent, contribution, amount, date) {
-    let messageError = `Параметр ${parameterName} содержит неправильное значение ${parameterValue}. `;
+    // let messageError = `Параметр ${parameterName} содержит неправильное значение ${parameterValue}. `;
     const percentName = 'Процентная ставка';
     const contributionName = 'Начальный взнос';
     const amountName = 'Общая стоимость';
@@ -45,14 +43,12 @@ function checkingValues(percent, contribution, amount, date) {
     const nonParsedPercent = percent;
     const nonParsedContribution = contribution;
     const nonParsedAmount = amount;
-    const nonParsedDate = date;
-    
-//     // Попытка сохранить данные после того, как из них выделили число, чтоб два раза не вычислять
+    const nonParsedDate = date;    
+    // Попытка сохранить данные после того, как из них выделили число, чтоб два раза не вычислять
     const parsedPercent = Number.parseFloat(nonParsedPercent);
     const parsedContribution = Number.parseFloat(nonParsedContribution); 
     const parsedAmount = Number.parseFloat(nonParsedAmount);
-
-//     // Запишем числовые данные в объект результата
+    // Запишем числовые данные в объект результата
     resultCheckValue.percent = parsedPercent;
     resultCheckValue.contribution = parsedContribution;
     resultCheckValue.amount = parsedAmount;
