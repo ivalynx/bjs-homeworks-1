@@ -12,7 +12,9 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
     if( resultCheckValue.error ) {
         console.log(resultCheckValue.message);
     } else {  
+        console.log(resultCheckValue);
         const mortgageBody =  resultCheckValue.amount - resultCheckValue.contribution;
+        console.log(`mortgageBody = ${mortgageBody}`);
         let months = 0;
         let years = date.getYear() - currentDate.getYear();
         if( years === 0 ) {
