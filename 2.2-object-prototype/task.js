@@ -1,16 +1,10 @@
 'use strict'
 
 function getAnimalSound(animal) {
-    function Tiger(color) {
-        this.color = color;
-    }
-    Tiger.prototype = animal;
-    const tiger = new Tiger('striped');
-    const animalSound = tiger.sound;
-    
     if(animal == undefined) {
         return null;
     } else {
+       const animalSound = animal.sound;
        return animalSound;
     };
 }
@@ -19,7 +13,7 @@ function getAverageMark(marks) {
     let average = 0;
     if( marks.length > 0) {
         for(let i = 0; i < marks.length; i++) {
-            average += Number.parseInt(marks[i]);
+            average += parseInt(marks[i]);
         };
         average = average / marks.length;    
         let roundedAverage = Math.round(average);
@@ -32,7 +26,7 @@ function getAverageMark(marks) {
 
 function checkBirthday(birthday) {
     const currentDate =  Date.now();
-    if( Number.isNaN( Number.parseInt(birthday) ) ) {
+    if( isNaN( parseInt(birthday) ) ) {
         return false;
     } else {
         const birthdayUser = Date.parse(birthday);
@@ -46,7 +40,6 @@ function checkBirthday(birthday) {
                 diffInterim -= yearMS;                          
                 ageUser += 1;
             } else {  
-                console.log(1972);    
                 for(let j = 0; diffInterim > yearMS; j++) {         
                     if( i % 4 === 0 ) {
                         diffInterim -= leapYearMS;
