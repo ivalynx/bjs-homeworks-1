@@ -1,13 +1,13 @@
 'use strict'
   
 const currentDate = new Date();
-let resultCheckValue = {};  
-let parameterName = '';
-let parameterValue = '';  
 
 function calculateTotalMortgage(percent, contribution, amount, date) {
     // код для задачи №1 писать здесь
-    resultCheckValue = {};
+    
+let resultCheckValue = {};  
+let parameterName = '';
+let parameterValue = '';  
     
     checkingValues(percent, contribution, amount, date);
     if( resultCheckValue.error ) {
@@ -33,8 +33,8 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
         console.log(`Общая стоимость ${totalAmount}`);
         return totalAmount;
     }
-}
 
+    
 function checkingValues(percent, contribution, amount, date) {
     // let messageError = `Параметр ${parameterName} содержит неправильное значение ${parameterValue}. `;
     const percentName = 'Процентная ставка';
@@ -73,16 +73,19 @@ function checkingValues(percent, contribution, amount, date) {
     
     return resultCheckValue;
 } 
+}
 
-let userName;
+
 
 function getGreeting(name) {
+    let userName;
+
     // код для задачи №2 писать здесь
     checkingName(name);
     let greeting = `Привет, мир! Меня зовут ${userName}`;
     console.log(greeting);
     return greeting;
-}
+    
 
 function checkingName(name) {    
     switch(name) {
@@ -96,4 +99,5 @@ function checkingName(name) {
             break;        
     }
     return userName;
+}
 }
