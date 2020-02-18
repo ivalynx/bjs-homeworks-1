@@ -14,6 +14,7 @@ class Weapon {
   };
   getDamage() {
     if( this.durability === 0 ) {
+      this.attack = undefined;
       return 0;
     } else if( this.durability >= (this.firstDurability / 100 * 30) ) {
       return this.attack;
@@ -37,28 +38,31 @@ const sword = new Weapon('Меч',	25,	500, 1);
 const knife = new Weapon('Нож', 5,	300,	1);
 const staff = new Weapon('Посох', 8, 300, 2);
 
-const logBow = new Weapon('Длинный лук', bow.durability, 15, 4);
+const longBow = new Weapon('Длинный лук', bow.durability, 15, 4);
 const axe = new Weapon('Секира', 27, 800, sword.durability);
 const stormStaff = new Weapon('Посох Бури', 10, staff.durability, 3);	
 
-// oldSword.takeDamage(5);
-// console.log(oldSword.durability); // 5
-// oldSword.takeDamage(50);
-// console.log(oldSword.durability); // 0
+oldSword.takeDamage(5);
+console.log(oldSword.durability); // 5
+oldSword.takeDamage(50);
+console.log(oldSword.durability); // 0
 
-// arm.takeDamage(20);
-// console.log(arm.durability); // Infinity
+arm.takeDamage(20);
+console.log(arm.durability); // Infinity
 
-// bow.takeDamage(20);
-// console.log(bow.durability); // 180
-// bow.takeDamage(200);
-// console.log(bow.durability); // 0
-// console.log(bow.getDamage()); // 0
-// console.log(bow.isBroken()); // true
+bow.takeDamage(20);
+console.log(bow.durability); // 180
+bow.takeDamage(200);
+console.log(bow.durability); // 0
+console.log(bow.getDamage()); // 0
+console.log(bow.isBroken()); // true
 
-// console.log(arm.durability); // Infinity
-// console.log(arm.getDamage()); // 1
-// console.log(arm.isBroken()); // false
+console.log(arm.durability); // Infinity
+console.log(arm.getDamage()); // 1
+console.log(arm.isBroken()); // false
+
+console.log(arm, bow, sword, oldSword, knife, staff, longBow, axe, stormStaff );
+
 // #2
 
 class Arm extends Weapon {
@@ -153,13 +157,49 @@ class StudentLog {
       console.log(`Вы пытались поставить оценку "${grade}" по предмету "${subject}". Допускаются только числа от 1 до 5.`);
       return this.subjects[subject].length;
     } 
-    console.log(11);
     this.subjects[subject].push(grade);
-    console.log(this.subjects);
     return this.subjects[subject].length;
+  };
+  getAverageBySubject(subject) {
+    if( this.subjects[subject] == undefined ) {
+      return 0;
+    } else {
+      let summ = 0;
+      for( let i = 0; i < this.subjects[subject].length; i++ ) {
+        summ += this.subjects[subject][i];
+      };
+      console.log(summ);
+      return summ / this.subjects[subject].length;
+    };
+  };
+  getTotalAverage() {
+    let totalSumm = 0;
+    let amountGrades = 0;
+    let totalAverage = 0;
+    for( let key in this.subjects ) {      
+      let summ = 0;
+      for( let i = 0; i < this.subjects[key].length; i++ ) {
+        summ += this.subjects[key][i];
+        amountGrades += 1;
+      };
+      totalSumm += summ;
+    };
+    totalAverage = totalSumm / amountGrades;
+    if( isNaN(totalAverage) ) {
+      return 0;
+    }
+    return totalAverage;
   };
 };
 
 const log = new StudentLog('Олег Никифоров');
-console.log(log.getName())
-console.log(log.addGrade(3, 'algebra'));
+// console.log(log.getName())
+// // console.log(log.addGrade(5, 'algebra'));
+// // log.addGrade(2, 'algebra');
+// // log.addGrade(4, 'algebra');
+// // log.addGrade(5, 'geometry');
+// // log.addGrade(4, 'geometry');
+// console.log(log.getAverageBySubject('geometry')); // 4.5
+// console.log(log.getAverageBySubject('algebra')); // 3
+// console.log(log.getAverageBySubject('math')); // 0
+// console.log(log.getTotalAverage());
