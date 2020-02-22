@@ -1,11 +1,11 @@
 class Weapon {
-  constructor(name, attack, durability, range) {
-    this.name = name;
-    this.attack = attack;
-    this.durability = durability;
-    this.range = range;
-    this.firstDurability = durability;
-  };
+  constructor(object){
+    this.name = object.name;
+    this.attack = object.attack;
+    this.durability = object.durability;
+    this.range = object.range;
+    this.firstDurability = object.durability;
+  }
   takeDamage(damage) {
     this.durability = this.durability - damage;
     if(this.durability < 0) {
@@ -31,7 +31,14 @@ class Weapon {
   };
 }
 
-const oldSword = new Weapon('Старый меч', 20, 10, 1); 
+const oldSword = new Weapon({
+  name: 'Старый меч',
+  attack: 20,
+  durability: 10,
+  range: 1,
+});
+
+// const oldSword = new Weapon('Старый меч', 20, 10, 1); 
 const arm = new Weapon('Рука', 1, Infinity, 1);
 const bow = new Weapon('Лук', 10, 200, 3);
 const sword = new Weapon('Меч',	25,	500, 1);
@@ -42,40 +49,72 @@ const longBow = new Weapon('Длинный лук', bow.durability, 15, 4);
 const axe = new Weapon('Секира', 27, 800, sword.durability);
 const stormStaff = new Weapon('Посох Бури', 10, staff.durability, 3);	
 
-oldSword.takeDamage(5);
-console.log(oldSword.durability); // 5
-oldSword.takeDamage(50);
-console.log(oldSword.durability); // 0
+// oldSword.takeDamage(5);
+// console.log(oldSword.durability); // 5
+// oldSword.takeDamage(50);
+// console.log(oldSword.durability); // 0
 
-arm.takeDamage(20);
-console.log(arm.durability); // Infinity
+// arm.takeDamage(20);
+// console.log(arm.durability); // Infinity
 
-bow.takeDamage(20);
-console.log(bow.durability); // 180
-bow.takeDamage(200);
-console.log(bow.durability); // 0
-console.log(bow.getDamage()); // 0
-console.log(bow.isBroken()); // true
+// bow.takeDamage(20);
+// console.log(bow.durability); // 180
+// bow.takeDamage(200);
+// console.log(bow.durability); // 0
+// console.log(bow.getDamage()); // 0
+// console.log(bow.isBroken()); // true
 
-console.log(arm.durability); // Infinity
-console.log(arm.getDamage()); // 1
-console.log(arm.isBroken()); // false
+// console.log(arm.durability); // Infinity
+// console.log(arm.getDamage()); // 1
+// console.log(arm.isBroken()); // false
 
-console.log(arm, bow, sword, oldSword, knife, staff, longBow, axe, stormStaff );
+// console.log(arm, bow, sword, oldSword, knife, staff, longBow, axe, stormStaff );
 
 // #2
+class WeaponCommon {  
+  constructor(name, attack, durability, range){
+    this.name = name;
+    this.attack = attack;
+    this.durability = durability;
+    this.range = range;
+    this.firstDurability = durability;
+  }
+  takeDamage(damage) {
+    this.durability = this.durability - damage;
+    if(this.durability < 0) {
+      this.durability = 0;
+    }
+  };
+  getDamage() {
+    if( this.durability === 0 ) {
+      this.attack = undefined;
+      return 0;
+    } else if( this.durability >= (this.firstDurability / 100 * 30) ) {
+      return this.attack;
+    } else {
+      return this.attack / 2;
+    };
+  };
+  isBroken() {
+    if( this.durability > 0 ) {
+      return false;
+    } else {
+      return true;
+    };
+  };
+}
 
-class Arm extends Weapon {
+class Arm extends WeaponCommon {
   constructor(name, attack, durability, range) {
     super('Рука', 1, Infinity, 1);
   };
 };
-class Bow extends Weapon {
+class Bow extends WeaponCommon {
   constructor(name, attack, durability, range) {
     super('Лук', 10, 200, 3);
   };
 };
-class Sword extends Weapon {
+class Sword extends WeaponCommon {
   constructor(name, attack, durability, range) {
     super('Меч',	25,	500, 1);
   };
@@ -89,12 +128,12 @@ class OldSword extends Sword {
     this.firstDurability = this.durability;
   };
 };
-class Knife extends Weapon {
+class Knife extends WeaponCommon {
   constructor(name, attack, durability, range) {
     super('Нож', 5,	300,	1);
   };
 };
-class Staff extends Weapon {
+class Staff extends WeaponCommon {
   constructor(name, attack, durability, range) {
     super('Посох', 8, 300, 2);
   };
@@ -137,7 +176,7 @@ const longBow1 = new LongBow();
 const axe1 = new Axe();
 const stormStaff1 = new StormStaff();
 
-// console.log(arm1, bow1, sword1, oldSword1, knife1, staff1, longBow1, axe1, stormStaff1 );
+ console.log(arm1, bow1, sword1, oldSword1, knife1, staff1, longBow1, axe1, stormStaff1 );
 
 // #3
 
