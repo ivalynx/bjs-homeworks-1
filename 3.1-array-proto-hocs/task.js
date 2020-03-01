@@ -68,7 +68,7 @@ function memorize(fn, limit) {
             memory.shift();
           }
         };
-        return fn(args);
+        return fn(...args);
       };
   };
 }
