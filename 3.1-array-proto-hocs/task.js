@@ -53,8 +53,7 @@ function memorize(fn, limit) {
       if(search) {
         console.log(`Found ${search}`);
         return memory.result;
-      } else {
-        console.log(`Npt found ${search}`);
+      }
         let resultFn = fn(...args);
         memory.push(
           {
@@ -68,8 +67,7 @@ function memorize(fn, limit) {
             memory.shift();
           }
         };
-        return fn(...args);
-      };
+        return resultFn;    
   };
 }
 
