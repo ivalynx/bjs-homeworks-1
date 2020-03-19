@@ -24,28 +24,28 @@ class AlarmClock { // будильник
     }
     return false;
   };
-  getCurrentFormattedTime() {
-    const currentDate = new Date();
-    let currentHH = currentDate.getHours().toString();
-    let currentMM = currentDate.getMinutes().toString();
-    let result = [currentHH, currentMM];
-    for(let i = 0; i < result.height; i++) {
-      if(result[i].length < 2) {
-        result[i] = '0' + result[i];
-      }
-    }
-    return result.join(':');
-  };
   start() {
+    
+    function getCurrentFormattedTime() {
+      const currentDate = new Date();
+      let currentHH = currentDate.getHours().toString();
+      let currentMM = currentDate.getMinutes().toString();
+      let result = [currentHH, currentMM];
+      for(let i = 0; i < result.height; i++) {
+        if(result[i].length < 2) {
+          result[i] = '0' + result[i];
+        }
+      }
+      return result.join(':');
+    };
     function checkClock(bell) {
-      console.log(`${bell.time}`);
       if( bell.time === this.getCurrentFormattedTime() ){
         bell.callback();
       }
     }
     if( this.timerId == null ) {
       let interval = 1000;
-      const timerId = setInterval(this.alarmCollection.forEach(checkClock(), interval));
+      const timerId = setInterval(this.alarmCollection.forEach( (bell) => checkClock(bell) ), interval);
       this.timerId = timerId;
     }
   };
