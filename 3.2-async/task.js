@@ -1,25 +1,25 @@
-class AlarmClock {
+class AlarmClock { // будильник
   constructor() {
-    this.alarmCollection = [];
-    this.timerId;
+    this.alarmCollection = [];  // коллекция звонков bell
+    this.timerId = null; // id системного таймера
   };
-  addClock(HH, MM, fn, timerID) {
-    if(!timerID) {
-      throw new Error(`timerID doesn't have exist`)
+  addClock(hoursMinutes, fn, bellID) {  // bellID - id звонка
+    if(!bellID) {
+      throw new Error(`bellID doesn't have exist`)
     };
-    if( this.alarmCollection.find(alarm => timerID in alarm) ) {
-      throw new Error(`timerID have exist yet`)
+    if( this.alarmCollection.find( bell => Object.values(bell).includes(bellID) ) ) {
+      throw new Error(`bellID have exist yet`)
     };
     this.alarmCollection.push({
-      time: `${HH}:${MM}`;
-      callback: fn;
-      id: timerID;
+      time: hoursMinutes,
+      callback: fn,
+      id: bellID,
     });
   };
-  removeClock(timerID) {
-    const notFoundTimerID = this.alarmCollection.filter(alarm => alarm.id !== timerID);
-    if( notFoundTimerID.length < this.alarmCollection.length ) {
-      this.alarmCollection = notFoundTimerID;
+  removeClock(bellID) {
+    const notFoundBellID = this.alarmCollection.filter(bell => bell.id !== bellID);
+    if( notFoundBellID.length < this.alarmCollection.length ) {
+      this.alarmCollection = notFoundBellID;
       return true;
     }
     return false;
@@ -35,20 +35,44 @@ class AlarmClock {
       }
     }
     return result.join(':');
-  }
+  };
   start() {
-    function checkClock(alarm) {
-      if( alarm.time === getCurrentFormattedTime() ){
-        return alarm.callback;
+    function checkClock(bell) {
+      console.log(`${bell.time}`);
+      if( bell.time === this.getCurrentFormattedTime() ){
+        bell.callback();
       }
     }
-    if( this.timerId === undefined ) {
-      const setInterval = for(let i = 0; i < this.alarmCollection.length; i++) => this.alarmCollection[i].checkClock();
-
+    if( this.timerId == null ) {
+      let interval = 1000;
+      const timerId = setInterval(this.alarmCollection.forEach(checkClock(), interval));
+      this.timerId = timerId;
     }
-  }
+  };
+  stop() {
+    if(this.timerId) {
+      clearInterval(timerId);
+      this.timerId = null;
+    };
+  };
+  printAlarms() {
+    console.log(`Печать всех будильников в количестве: ${this.alarmCollection.length}`);
+    this.alarmCollection.forEach( (bell) => console.log(`${bell.time}, ${bell.id}`) );
+  };
+  clearAlarms() {
+    clearInterval(timerId);
+    const alarmLength = this.alarmCollection.length;
+    for(let i = 0; i < alarmLength; i++) {
+      this.alarmCollection.shift();
+    }
+  };
 }
 
-const alarmClock = new AlarmClock();
-alarmClock.addClock(11, 40, alert('Bzzz'), bzzz);
-
+const phoneAlarm = new AlarmClock();
+phoneAlarm.addClock(`21:50`, () => console.log('Bzzz0'), 1);
+phoneAlarm.addClock(`21:51`, () => {console.log('Bzzz1'); phoneAlarm.removeClock(2)}, 2);
+// phoneAlarm.addClock(`21:33`, () => console.log('Bzzz2'));
+phoneAlarm.addClock(`21:52`, () => console.log('Bzzz2'), 3);
+phoneAlarm.addClock(`21:53`, () => console.log('Bzzz3'), 4);
+phoneAlarm.printAlarms();
+phoneAlarm.start();
