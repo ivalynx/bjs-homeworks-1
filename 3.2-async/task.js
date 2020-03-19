@@ -39,7 +39,7 @@ class AlarmClock { // будильник
       return result.join(':');
     };
     function checkClock(bell) {
-      if( bell.time === this.getCurrentFormattedTime() ){
+      if( bell.time === getCurrentFormattedTime() ){
         bell.callback();
       }
     }
@@ -69,10 +69,10 @@ class AlarmClock { // будильник
 }
 
 const phoneAlarm = new AlarmClock();
-phoneAlarm.addClock(`21:50`, () => console.log('Bzzz0'), 1);
-phoneAlarm.addClock(`21:51`, () => {console.log('Bzzz1'); phoneAlarm.removeClock(2)}, 2);
-// phoneAlarm.addClock(`21:33`, () => console.log('Bzzz2'));
-phoneAlarm.addClock(`21:52`, () => console.log('Bzzz2'), 3);
-phoneAlarm.addClock(`21:53`, () => console.log('Bzzz3'), 4);
-phoneAlarm.printAlarms();
+phoneAlarm.addClock(`22:11`, () => console.log('Bzzz0'), 1);
+phoneAlarm.addClock(`22:12`, () => {console.log('Bzzz1'); phoneAlarm.removeClock(2)}, 2);
+// phoneAlarm.addClock(`22:33`, () => console.log('Bzzz2'));
+phoneAlarm.addClock(`22:13`, () => console.log('Bzzz2'), 3);
+phoneAlarm.addClock(`22:14`, () => console.log('Bzzz3'), 4);
+// phoneAlarm.printAlarms();
 phoneAlarm.start();
