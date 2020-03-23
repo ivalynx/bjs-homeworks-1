@@ -24,34 +24,29 @@ class AlarmClock { // будильник
     }
     return false;
   };
-  start() {
-    
-    function getCurrentFormattedTime() {
-      const currentDate = new Date();
-      let currentHH = currentDate.getHours().toString();
-      let currentMM = currentDate.getMinutes().toString();
-      let result = [currentHH, currentMM];
-      for(let i = 0; i < result.height; i++) {
-        if(result[i].length < 2) {
-          result[i] = '0' + result[i];
-        }
-      }
-      return result.join(':');
-    };
-    function checkClock(bell) {
-      if( bell.time === getCurrentFormattedTime() ){
-        bell.callback();
+  getCurrentFormattedTime() {
+    const currentDate = new Date();
+    let currentHH = currentDate.getHours().toString();
+    let currentMM = currentDate.getMinutes().toString();
+    let result = [currentHH, currentMM];
+    for(let i = 0; i < result.height; i++) {
+      if(result[i].length < 2) {
+        result[i] = '0' + result[i];
       }
     }
+    return result.join(':');
+  };
+  start() {
     if( this.timerId == null ) {
-      let interval = 1000;
-      const timerId = setInterval(this.alarmCollection.forEach( (bell) => checkClock(bell) ), interval);
-      this.timerId = timerId;
+      const interval = 1000;
+      this.timerId = setInterval(this.alarmCollection.forEach( (bell) => { if( bell.time === this.getCurrentFormattedTime() ){
+        bell.callback();
+      }} ), interval);
     }
   };
   stop() {
     if(this.timerId) {
-      clearInterval(timerId);
+      clearInterval(this.timerId);
       this.timerId = null;
     };
   };
@@ -60,11 +55,8 @@ class AlarmClock { // будильник
     this.alarmCollection.forEach( (bell) => console.log(`${bell.time}, ${bell.id}`) );
   };
   clearAlarms() {
-    clearInterval(timerId);
-    const alarmLength = this.alarmCollection.length;
-    for(let i = 0; i < alarmLength; i++) {
-      this.alarmCollection.shift();
-    }
+    clearInterval(this.timerId);
+    this.alarmCollection = [];
   };
 }
 
